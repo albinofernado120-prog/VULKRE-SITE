@@ -1,0 +1,57 @@
+<svg viewBox="0 0 1023 883" width="1023" height="883" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="shard1"><path d="M994.396 743.934L585.292 826.379L557.89 521.835L994.396 743.934Z" /></clipPath>
+    <clipPath id="shard2"><path d="M455.733 544.43L576.878 882.866L280.266 731.435L455.733 544.43Z" /></clipPath>
+    <clipPath id="shard3"><path d="M959.063 235.078L930.94 372.808L747.781 445.639L959.063 235.078Z" /></clipPath>
+    <clipPath id="shard4"><path d="M99.9923 645.864L0 469.676L465.59 498.039L99.9923 645.864Z" /></clipPath>
+    <clipPath id="shard5"><path d="M1023 716.772L729.032 469.676L973.004 510.779L1023 716.772Z" /></clipPath>
+    <clipPath id="shard6"><path d="M212.724 97.108L549.958 0L539.863 349.733L212.724 97.108Z" /></clipPath>
+    <clipPath id="shard7"><path d="M635.048 429.534L576.88 40.6218L943.438 231.473L635.048 429.534Z" /></clipPath>
+    <clipPath id="shard8"><path d="M177.871 94.7044L404.296 389.394L162.487 305.025L177.871 94.7044Z" /></clipPath>
+  </defs>
+  
+  <style>
+    .glass-shard {
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      cursor: pointer;
+      transform-box: fill-box;
+      transform-origin: center center;
+    }
+    .glass-shard:hover {
+      transform: scale(1.05);
+    }
+  </style>
+
+  <g class="glass-shard">
+    <path d="M994.396 743.934L585.292 826.379L557.89 521.835L994.396 743.934Z" fill="transparent" />
+    <image href="hero-full-nova.png" width="1920" height="1080" x="-448" y="-71" clip-path="url(#shard1)" />
+  </g>
+  <g class="glass-shard">
+    <path d="M455.733 544.43L576.878 882.866L280.266 731.435L455.733 544.43Z" fill="transparent" />
+    <image href="hero-full-nova.png" width="1920" height="1080" x="-448" y="-71" clip-path="url(#shard2)" />
+  </g>
+  <g class="glass-shard">
+    <path d="M959.063 235.078L930.94 372.808L747.781 445.639L959.063 235.078Z" fill="transparent" />
+    <image href="hero-full-nova.png" width="1920" height="1080" x="-448" y="-71" clip-path="url(#shard3)" />
+  </g>
+  <g class="glass-shard">
+    <path d="M99.9923 645.864L0 469.676L465.59 498.039L99.9923 645.864Z" fill="transparent" />
+    <image href="hero-full-nova.png" width="1920" height="1080" x="-448" y="-71" clip-path="url(#shard4)" />
+  </g>
+  <g class="glass-shard">
+    <path d="M1023 716.772L729.032 469.676L973.004 510.779L1023 716.772Z" fill="transparent" />
+    <image href="hero-full-nova.png" width="1920" height="1080" x="-448" y="-71" clip-path="url(#shard5)" />
+  </g>
+  <g class="glass-shard">
+    <path d="M212.724 97.108L549.958 0L539.863 349.733L212.724 97.108Z" fill="transparent" />
+    <image href="hero-full-nova.png" width="1920" height="1080" x="-448" y="-71" clip-path="url(#shard6)" />
+  </g>
+  <g class="glass-shard">
+    <path d="M635.048 429.534L576.88 40.6218L943.438 231.473L635.048 429.534Z" fill="transparent" />
+    <image href="hero-full-nova.png" width="1920" height="1080" x="-448" y="-71" clip-path="url(#shard7)" />
+  </g>
+  <g class="glass-shard">
+    <path d="M177.871 94.7044L404.296 389.394L162.487 305.025L177.871 94.7044Z" fill="transparent" />
+    <image href="hero-full-nova.png" width="1920" height="1080" x="-448" y="-71" clip-path="url(#shard8)" />
+  </g>
+</svg>

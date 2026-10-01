@@ -1,0 +1,707 @@
+/* ==========================================================================
+   VULKRE - EXACT FIGMA 1:1 RECREATION
+   Pure typography, exact frame pixel dimensions, no artificial added effects.
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-color: #0d0d0d;
+  --text-color: #E8E6E1;
+  --font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  --ember-accent: #7A3A77;
+  --verdant-accent: #266E3A;
+  --surge-accent: #8D401D;
+  --flare-accent: #8F6E1C;
+  --inferno-accent: #991B1B;
+
+  --ember-dot: #9C5298;
+  --verdant-dot: #32A24F;
+  --surge-dot: #C75825;
+  --flare-dot: #D3A125;
+  --inferno-dot: #D32525;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--bg-color);
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
+/* --- Exact Figma Noise Texture --- */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../assets/images/texture-grain.png');
+  background-repeat: repeat;
+  background-size: 512px 512px;
+  opacity: 0.16;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translateZ(0);
+}
+
+/* --- Sections --- */
+.screen-home,
+.screen-flavour,
+.screen-final {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: #0d0d0d;
+  overflow: hidden;
+}
+
+.frame-canvas {
+  width: 1920px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* --- TELA-HOME --- */
+.screen-home {
+  height: 1080px;
+}
+
+.screen-home .frame-canvas {
+  width: 1920px;
+  height: 1080px;
+}
+
+.screen-home .frame-bg-img {
+  width: 1920px;
+  height: 1080px;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* --- TELA-SABORES --- */
+.screen-flavour {
+  height: 1080px;
+}
+
+.screen-flavour .frame-canvas {
+  height: 1080px;
+}
+
+/* Símbolo pinwheel da marca de fundo
+   Cor original exportada do figma | Opacidade max: 20% | Coords: x:208, y:71, w:1023, h:883 */
+.flavour-mosaic-bg {
+  position: absolute;
+  left: 447px;
+  top: 71px;
+  width: 1023px;
+  height: 883px;
+  opacity: 0;
+  transition: opacity 1.6s ease-in-out;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  display: block;
+}
+
+.flavour-mosaic-bg.active {
+  opacity: 1; /* Mostra exatamente como veio do Figma */
+}
+
+/* ============================================================
+   blur-garrafa: PNGs reais do Figma (blur 50px embutido).
+   O export 2x tem ~100px de padding por lado (blur overflow).
+   Posicionamento: center = figma_x + figma_w/2, figma_y + figma_h/2
+   left = center_x - png_w/2   |   top = center_y - png_h/2
+   ============================================================ */
+.blur-garrafa-img {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
+  opacity: 0;
+  transform: translateX(100vw);
+  transition: opacity 1.6s ease-in-out, transform 1.6s ease-in-out;
+  display: block;
+}
+
+.blur-garrafa-img.active {
+  opacity: 0.75;
+  transform: translateX(0);
+}
+
+.blur-garrafa-img.prev {
+  opacity: 0;
+  transform: translateX(-100vw);
+}
+.screen-flavour.reverse-nav .blur-garrafa-img:not(.active):not(.prev) { transform: translateX(-100vw); }
+.screen-flavour.reverse-nav .blur-garrafa-img.prev { transform: translateX(100vw); }
+
+/* Ember   — figma x:819 y:138 w:281 h:717 | PNG 1x: 481×917 */
+.blur-garrafa-img[data-index="0"] {
+  left: 719px;  /* 819 - (481-281)/2 */
+  top:   38px;  /* 138 - (917-717)/2 */
+  width: 481px;
+  height: 917px;
+}
+
+/* Verdant — figma x:819 y:138 w:264 h:717 | PNG 1x: 464×917 */
+.blur-garrafa-img[data-index="1"] {
+  left: 727.5px;  /* 819 - (464-281)/2 */
+  top:   38px;
+  width: 464px;
+  height: 917px;
+}
+
+/* Surge   — figma x:819 y:138 w:262 h:717 | PNG 1x: 462×917 */
+.blur-garrafa-img[data-index="2"] {
+  left: 728.5px;  /* 819 - (462-281)/2 */
+  top:   38px;
+  width: 462px;
+  height: 917px;
+}
+
+/* Flare   — figma x:819 y:138 w:259 h:717 | PNG 1x: 459×917 */
+.blur-garrafa-img[data-index="3"] {
+  left: 730px;  /* 819 - (459-281)/2 */
+  top:   38px;
+  width: 459px;
+  height: 917px;
+}
+
+/* Inferno — figma x:819 y:138 w:264 h:717 | PNG 1x: 464×917 */
+.blur-garrafa-img[data-index="4"] {
+  left: 727.5px;  /* 819 - (464-281)/2 */
+  top:   38px;
+  width: 464px;
+  height: 917px;
+}
+
+/* Navbar (Inside Flavour frame: x: 240, y: 80) */
+.flavour-navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 160px;
+  z-index: 20;
+}
+
+.nav-logo {
+  position: absolute;
+  left: 240px;
+  top: 80px;
+  width: 80px;
+  height: 67px;
+  display: block;
+}
+
+.nav-logo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.nav-menu {
+  position: absolute;
+  left: 821px;
+  top: 80px;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+.menu-item {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.menu-item:hover,
+.menu-item.active {
+  opacity: 1;
+}
+
+/* Figma Shadow & Soft Blur behind bottle */
+.sombra-escura {
+  position: absolute;
+  left: 749px;
+  top: 302px;
+  width: 427px;
+  height: 427px;
+  border-radius: 50%;
+  background: #000000;
+  filter: blur(180px);
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.blur-garrafa {
+  position: absolute;
+  left: 819px;
+  top: 138px;
+  width: 281px;
+  height: 717px;
+  filter: blur(100px);
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 3;
+  transition: background-color 0.3s ease;
+}
+
+body.theme-ember .blur-garrafa { background-color: var(--ember-accent); }
+body.theme-verdant .blur-garrafa { background-color: var(--verdant-accent); }
+body.theme-surge .blur-garrafa { background-color: var(--surge-accent); }
+body.theme-flare .blur-garrafa { background-color: var(--flare-accent); }
+body.theme-inferno .blur-garrafa { background-color: var(--inferno-accent); }
+
+/* Center Big Titles (x: 441, y: 404, w: 1036, h: 250) */
+.flavor-title-layer {
+  position: absolute;
+  left: 441px;
+  top: 404px;
+  width: 1036px;
+  height: 250px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.title-vector {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transform: translateX(100vw);
+  transition: opacity 1.6s ease-in-out, transform 1.6s ease-in-out;
+}
+
+.title-vector.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.title-vector.prev {
+  opacity: 0;
+  transform: translateX(-100vw);
+}
+.screen-flavour.reverse-nav .title-vector:not(.active):not(.prev) { transform: translateX(-100vw); }
+.screen-flavour.reverse-nav .title-vector.prev { transform: translateX(100vw); }
+
+/* Center Bottle Stage Wrapper */
+.bottle-center-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.bottle-img {
+  position: absolute;
+  width: 230px;
+  height: 700px;
+  object-fit: contain;
+  opacity: 0;
+  transform: translateX(100vw);
+  user-select: none;
+  pointer-events: none;
+  transition: transform 1.6s ease-in-out;
+}
+
+.bottle-img[data-index="0"] { left: 845px; top: 128px; }
+.bottle-img[data-index="1"] { left: 845px; top: 132px; }
+.bottle-img[data-index="2"] { left: 837px; top: 132px; }
+.bottle-img[data-index="3"] { left: 845px; top: 133px; }
+.bottle-img[data-index="4"] { left: 845px; top: 133px; }
+
+.bottle-img.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.bottle-img.prev {
+  opacity: 1;
+  transform: translateX(-100vw);
+}
+.screen-flavour.reverse-nav .bottle-img:not(.active):not(.prev) { transform: translateX(-100vw); }
+.screen-flavour.reverse-nav .bottle-img.prev { transform: translateX(100vw); }
+
+/* Arrows (x: 96 and x: 1304, y: 517) */
+.nav-arrow {
+  position: absolute;
+  top: 517px;
+  width: 38px;
+  height: 82px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  z-index: 20;
+  transition: transform 0.15s ease;
+}
+
+.nav-arrow:hover {
+  transform: scale(1.08);
+}
+
+.nav-arrow:active {
+  transform: scale(0.95);
+}
+
+.arrow-left {
+  left: 277px;
+}
+
+.arrow-right {
+  left: 1605px;
+}
+
+/* Flavor Info Block (x: 242, y: 744, w: 318) */
+.flavor-info-block {
+  position: absolute;
+  left: 242px;
+  top: 744px;
+  width: 318px;
+  height: 140px;
+  z-index: 10;
+}
+
+.info-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateX(100vw);
+  pointer-events: none;
+  transition: opacity 1.6s ease-in-out, transform 1.6s ease-in-out;
+}
+
+.info-content.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.info-content.prev {
+  opacity: 0;
+  transform: translateX(-100vw);
+}
+.screen-flavour.reverse-nav .info-content:not(.active):not(.prev) { transform: translateX(-100vw); }
+.screen-flavour.reverse-nav .info-content.prev { transform: translateX(100vw); }
+
+.info-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-color);
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.info-desc {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #c4c2be;
+}
+
+/* 5 Dots Pagination (x: 892, y: 869, w: 135, h: 21) */
+.dots-pagination {
+  position: absolute;
+  left: 892px;
+  top: 869px;
+  width: 135px;
+  height: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.dot-item {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.dot-circle {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #2b2b2b;
+  display: block;
+  transition: background-color 0.25s ease;
+}
+
+.dot-aura {
+  position: absolute;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  opacity: 0;
+  filter: blur(8px);
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+body.theme-ember .dot-item.active .dot-circle { background-color: var(--ember-dot); }
+body.theme-ember .dot-item.active .dot-aura { background-color: var(--ember-dot); opacity: 0.6; }
+
+body.theme-verdant .dot-item.active .dot-circle { background-color: var(--verdant-dot); }
+body.theme-verdant .dot-item.active .dot-aura { background-color: var(--verdant-dot); opacity: 0.6; }
+
+body.theme-surge .dot-item.active .dot-circle { background-color: var(--surge-dot); }
+body.theme-surge .dot-item.active .dot-aura { background-color: var(--surge-dot); opacity: 0.6; }
+
+body.theme-flare .dot-item.active .dot-circle { background-color: var(--flare-dot); }
+body.theme-flare .dot-item.active .dot-aura { background-color: var(--flare-dot); opacity: 0.6; }
+
+body.theme-inferno .dot-item.active .dot-circle { background-color: var(--inferno-dot); }
+body.theme-inferno .dot-item.active .dot-aura { background-color: var(--inferno-dot); opacity: 0.6; }
+
+/* Heat Meter Block (x: 1500, y: 716, w: 180, h: 108) */
+.heat-meter-block {
+  position: absolute;
+  left: 1500px;
+  top: 716px;
+  width: 180px;
+  height: 108px;
+  z-index: 10;
+}
+
+.heat-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transform: translateX(100vw);
+  pointer-events: none;
+  transition: opacity 1.6s ease-in-out, transform 1.6s ease-in-out;
+}
+
+.heat-svg.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.heat-svg.prev {
+  opacity: 0;
+  transform: translateX(-100vw);
+}
+.screen-flavour.reverse-nav .heat-svg:not(.active):not(.prev) { transform: translateX(-100vw); }
+.screen-flavour.reverse-nav .heat-svg.prev { transform: translateX(100vw); }
+
+/* --- TELA-FINAL (1920 x 1280 - Strict Exact Dimension) --- */
+.final-canvas {
+  width: 1920px;
+  height: 1280px;
+  position: relative;
+  background-color: #0d0d0d;
+}
+
+.final-canvas .frame-bg-img {
+  width: 1920px;
+  height: 1280px;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* --- Screen Responsiveness (Scales 1920 canvas cleanly for ALL viewports) --- */
+/* Home and Flavour now correctly maintain 1920px width and scale automatically */
+
+
+
+/* --- TELA-HOME-NOVA Separated Layers --- */
+.home-bg-layer {
+  position: absolute;
+  left: -22px;
+  top: -16px;
+  width: 1963px;
+  height: 1339px;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.home-text {
+  position: absolute;
+  font-family: 'Loew Variable', sans-serif;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 105px;
+  color: #E8E6E1;
+  z-index: 2;
+  white-space: nowrap;
+}
+.text-wake { left: 553px; top: 562px; }
+.text-the { left: 829px; top: 735px; }
+.text-fire { left: 1118px; top: 735px; }
+
+.logo-branca-layer {
+  position: absolute;
+  left: 801px;
+  top: 155px;
+  width: 129px;
+  height: 108px;
+  z-index: 3;
+}
+
+.logo-vidro-container {
+  position: absolute;
+  left: 448px;
+  top: 71px;
+  width: 1023px;
+  height: 883px;
+  z-index: 4;
+}
+
+
+
+.texture-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  background-color: rgba(13, 13, 13, 0.15);
+  pointer-events: none;
+  z-index: 5;
+}
+/* --- SCROLL ARROW --- */
+.scroll-arrow {
+  position: absolute;
+  bottom: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  animation: bounce 2s infinite;
+  opacity: 0.6;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+  40% { transform: translateY(-10px) translateX(-50%); }
+  60% { transform: translateY(-5px) translateX(-50%); }
+}
+
+/* --- PAIRINGS --- */
+.info-pairing {
+  font-family: 'Loew Variable', sans-serif;
+  font-size: 14px;
+  color: #E8E6E1;
+  opacity: 0.8;
+  margin-top: 20px;
+}
+.info-pairing strong {
+  font-weight: 700;
+  color: #D61016; /* Vulkre Red */
+}
+
+/* --- TELA FINAL & FOOTER --- */
+.constellation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1280px;
+}
+
+.vulkre-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 1920px;
+  height: 250px;
+  z-index: 10;
+}
+
+.footer-lines {
+  position: absolute;
+  left: 229px;
+  top: 75px;
+  width: 1035px;
+  height: 147px;
+}
+
+.footer-copyright {
+  position: absolute;
+  left: 1282px;
+  top: 76px;
+  font-family: 'Loew Variable', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  color: #E8E6E1;
+}
+
+.footer-logo {
+  position: absolute;
+  left: 1264px;
+  top: 126px;
+  width: 416px;
+  height: 97px;
+}
+.texture-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  background-color: rgba(13, 13, 13, 0.15);
+  pointer-events: none; /* allow clicks to pass through to the glass */
+  z-index: 5;
+}
+
+
+
+/* --- Interactive Triangles in About Section --- */
+.interactive-triangle {
+  position: absolute;
+  z-index: 10;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-origin: center center;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.interactive-triangle:hover {
+  transform: scale(1.05);
+  z-index: 20;
+}
+
+

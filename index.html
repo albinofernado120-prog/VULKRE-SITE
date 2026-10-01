@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VULKRE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+</head>
+<body class="theme-ember">
+
+  <!-- Grain / Noise Overlay (Idêntico ao Figma) -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- SESSÃO 1: TELA-HOME-NOVA (1920 x 1080) -->
+  <section class="screen-home" id="home">
+    <div class="frame-canvas">
+      <!-- Fundo Limpo (Sem logo-vidro) -->
+      <img src="assets/images/bg-home.png" class="home-bg-layer" alt="Background">
+      
+      <!-- Textos -->
+      <div class="home-text text-wake">WAKE</div>
+      <div class="home-text text-the">THE</div>
+      <div class="home-text text-fire">FIRE.</div>
+      
+      <!-- Logo branca pura -->
+      <img src="assets/images/logo-branca.png" class="logo-branca-layer" alt="Vulkre Logo Branca">
+      
+      <!-- Camada de Vidro SVG (Exatamente o arquivo logo-vidro) -->
+      <object type="image/svg+xml" data="assets/images/logo-vidro.svg" class="logo-vidro-container"></object>
+      
+      <!-- Seta minimalista de scroll -->
+      <div class="scroll-arrow">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E8E6E1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 5v14M19 12l-7 7-7-7"/>
+        </svg>
+      </div>
+      
+      <!-- Textura -->
+      <div class="texture-layer"></div>
+    </div>
+  </section>
+
+  <!-- SESSÃO 2: TELA-SABORES (1920 x 1080) -->
+  <section class="screen-flavour" id="flavour">
+    <div class="frame-canvas">
+      <!-- NAVBAR INTERNA FLAVOUR -->
+      <header class="flavour-navbar">
+        <a href="#home" class="nav-logo" aria-label="Voltar para o início">
+          <img src="assets/images/logo.svg" alt="VULKRE">
+        </a>
+        <nav class="nav-menu">
+          <a href="#flavour" class="menu-item active">Flavour</a>
+          <a href="#final" class="menu-item">About</a>
+          <a href="#product" class="menu-item">Product</a>
+        </nav>
+      </header>
+
+      <!-- Símbolos da marca de fundo: 5 imgs exportadas do Figma -->
+      <img src="assets/images/fundo-ember.png"   class="flavour-mosaic-bg active" data-index="0" aria-hidden="true">
+      <img src="assets/images/fundo-verdant.png" class="flavour-mosaic-bg"        data-index="1" aria-hidden="true">
+      <img src="assets/images/fundo-surge.png"   class="flavour-mosaic-bg"        data-index="2" aria-hidden="true">
+      <img src="assets/images/fundo-flare.png"   class="flavour-mosaic-bg"        data-index="3" aria-hidden="true">
+      <img src="assets/images/fundo-inferno.png" class="flavour-mosaic-bg"        data-index="4" aria-hidden="true">
+
+      <!-- Sombra escura por trás da garrafa (elipse blur, Figma: x:510 y:302) -->
+      <div class="sombra-escura" aria-hidden="true"></div>
+
+      <!-- blur-garrafa: PNG real por sabor exportado do Figma -->
+      <img src="assets/images/blur-garrafa-ember.png"   alt="" class="blur-garrafa-img active" data-index="0" aria-hidden="true">
+      <img src="assets/images/blur-garrafa-verdant.png" alt="" class="blur-garrafa-img"        data-index="1" aria-hidden="true">
+      <img src="assets/images/blur-garrafa-surge.png"   alt="" class="blur-garrafa-img"        data-index="2" aria-hidden="true">
+      <img src="assets/images/blur-garrafa-flare.png"   alt="" class="blur-garrafa-img"        data-index="3" aria-hidden="true">
+      <img src="assets/images/blur-garrafa-inferno.png" alt="" class="blur-garrafa-img"        data-index="4" aria-hidden="true">
+
+      <!-- Letras gigantes em vetor no centro (EMBER, VERDANT, SURGE, FLARE, INFERNO) -->
+      <div class="flavor-title-layer" aria-hidden="true">
+        <img src="assets/images/title-ember.svg" alt="EMBER" class="title-vector active" data-index="0">
+        <img src="assets/images/title-verdant.svg" alt="VERDANT" class="title-vector" data-index="1">
+        <img src="assets/images/title-surge.svg" alt="SURGE" class="title-vector" data-index="2">
+        <img src="assets/images/title-flare.svg" alt="FLARE" class="title-vector" data-index="3">
+        <img src="assets/images/title-inferno.svg" alt="INFERNO" class="title-vector" data-index="4">
+      </div>
+
+      <!-- Garrafa central isolada -->
+      <div class="bottle-center-stage">
+        <img src="assets/images/bottle-ember.png" alt="Vulkre Ember" class="bottle-img active" data-index="0">
+        <img src="assets/images/bottle-verdant.png" alt="Vulkre Verdant" class="bottle-img" data-index="1">
+        <img src="assets/images/bottle-surge.png" alt="Vulkre Surge" class="bottle-img" data-index="2">
+        <img src="assets/images/bottle-flare.png" alt="Vulkre Flare" class="bottle-img" data-index="3">
+        <img src="assets/images/bottle-inferno.png" alt="Vulkre Inferno" class="bottle-img" data-index="4">
+      </div>
+
+      <button class="nav-arrow arrow-left" id="btnPrev" aria-label="Sabor anterior">
+        <svg width="40" height="90" viewBox="0 0 40 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g filter="url(#filter0_d_278_576)">
+        <path d="M8.00007 41V51.701L28.3361 82H39.5701L16.8151 48.093V41H8.00007Z" fill="#101010"/>
+        <path d="M8.00007 41V30.299L28.3361 0H39.5701L16.8151 33.907V41H8.00007Z" fill="#101010"/>
+        </g>
+        <path d="M6.42976 41V51.701L26.7658 82H37.9998L15.2448 48.093V41H6.42976Z" fill="#E8E6E1"/>
+        <path d="M6.42976 41V30.299L26.7658 0H37.9998L15.2448 33.907V41H6.42976Z" fill="#E8E6E1"/>
+        <defs>
+        <filter id="filter0_d_278_576" x="0" y="0" width="39.5701" height="90" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+        <feOffset dx="-4" dy="4"/>
+        <feGaussianBlur stdDeviation="2"/>
+        <feComposite in2="hardAlpha" operator="out"/>
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_278_576"/>
+        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_278_576" result="shape"/>
+        </filter>
+        </defs>
+        </svg>
+      </button>
+
+      <button class="nav-arrow arrow-right" id="btnNext" aria-label="Próximo sabor">
+        <svg width="42" height="90" viewBox="0 0 42 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g filter="url(#filter0_d_278_569)">
+        <path d="M39.57 41V51.701L19.234 82H8L30.755 48.093V41H39.57Z" fill="#101010"/>
+        <path d="M39.57 41V30.299L19.234 0H8L30.755 33.907V41H39.57Z" fill="#101010"/>
+        </g>
+        <path d="M41.1403 41V51.701L20.8043 82H9.57031L32.3253 48.093V41H41.1403Z" fill="#E8E6E1"/>
+        <path d="M41.1403 41V30.299L20.8043 0H9.57031L32.3253 33.907V41H41.1403Z" fill="#E8E6E1"/>
+        <defs>
+        <filter id="filter0_d_278_569" x="0" y="0" width="39.5701" height="90" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+        <feOffset dx="-4" dy="4"/>
+        <feGaussianBlur stdDeviation="2"/>
+        <feComposite in2="hardAlpha" operator="out"/>
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_278_569"/>
+        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_278_569" result="shape"/>
+        </filter>
+        </defs>
+        </svg>
+      </button>
+
+      <!-- Bloco inferior esquerdo: Nome e Descrição do sabor -->
+      <div class="flavor-info-block">
+        <div class="info-content active" data-index="0">
+          <h2 class="info-title">GARLIC SMOKED</h2>
+          <p class="info-desc">Forged through smoke, fire, and roasted garlic. Ember delivers deep warmth and lingering flavor. The first sign of an awakening force below the surface.</p>
+
+        </div>
+        <div class="info-content" data-index="1">
+          <h2 class="info-title">JALAPEÑO</h2>
+          <p class="info-desc">Emerging through fractured ground and untamed growth. Verdant delivers fresh jalapeño heat with a vibrant and energetic edge. Bright, alive, and impossible to ignore.</p>
+
+        </div>
+        <div class="info-content" data-index="2">
+          <h2 class="info-title">CHIPOTLE</h2>
+          <p class="info-desc">Rising from mounting pressure and smoky depths. Surge delivers rich chipotle flavor wrapped in a relentless wave of heat. The moment when the ground begins to move.</p>
+
+        </div>
+        <div class="info-content" data-index="3">
+          <h2 class="info-title">HABANERO</h2>
+          <p class="info-desc">Ignited by intense heat and explosive energy. Flare delivers the fierce fruit-forward character of habanero in every drop. A warning sign moments before the eruption.</p>
+
+        </div>
+        <div class="info-content" data-index="4">
+          <h2 class="info-title">CAROLINA REAPER</h2>
+          <p class="info-desc">Unleashed from the heart of total eruption. Inferno delivers the relentless force of Carolina Reaper with uncompromising intensity. The final stage of volcanic power.</p>
+
+        </div>
+      </div>
+
+      <!-- Bloco inferior centro: 5 Dots (Group 17) -->
+      <div class="dots-pagination" role="tablist" aria-label="Navegar sabores">
+        <button class="dot-item active" role="tab" aria-selected="true" data-index="0" aria-label="Ember">
+          <span class="dot-circle"></span>
+          <span class="dot-aura"></span>
+        </button>
+        <button class="dot-item" role="tab" aria-selected="false" data-index="1" aria-label="Verdant">
+          <span class="dot-circle"></span>
+          <span class="dot-aura"></span>
+        </button>
+        <button class="dot-item" role="tab" aria-selected="false" data-index="2" aria-label="Surge">
+          <span class="dot-circle"></span>
+          <span class="dot-aura"></span>
+        </button>
+        <button class="dot-item" role="tab" aria-selected="false" data-index="3" aria-label="Flare">
+          <span class="dot-circle"></span>
+          <span class="dot-aura"></span>
+        </button>
+        <button class="dot-item" role="tab" aria-selected="false" data-index="4" aria-label="Inferno">
+          <span class="dot-circle"></span>
+          <span class="dot-aura"></span>
+        </button>
+      </div>
+
+      <!-- Bloco inferior direito: Régua de Calor (Heat Level) -->
+      <div class="heat-meter-block">
+        <img src="assets/images/heat-ember.svg" alt="Heat Level 01" class="heat-svg active" data-index="0">
+        <img src="assets/images/heat-verdant.svg" alt="Heat Level 02" class="heat-svg" data-index="1">
+        <img src="assets/images/heat-surge.svg" alt="Heat Level 03" class="heat-svg" data-index="2">
+        <img src="assets/images/heat-flare.svg" alt="Heat Level 04" class="heat-svg" data-index="3">
+        <img src="assets/images/heat-inferno.svg" alt="Heat Level 05" class="heat-svg" data-index="4">
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSÃO 3: TELA-FINAL (1920 x 1280) CONTINUIDADE -->
+  <section class="screen-final" id="final">
+    <div class="final-canvas">
+      <!-- Fundo com os triângulos brancos (usando a imagem original recortada antes do footer) -->
+      <img src="assets/images/final-full-2x.png" alt="Constellation Background" style="position: absolute; left: 0; top: 0; width: 1920px; height: 1280px; z-index: 1; clip-path: inset(0 0 250px 0);">
+      
+      <!-- Triângulos interativos (Agrupados na Constelação) -->
+      <div class="constellation" style="z-index: 2;">
+        <img src="assets/images/triangle-pessoa.png" class="interactive-triangle" style="left: 665.09px; top: 77.5px; width: 332.65px; height: 344.35px;" alt="Vulkre Hand">
+        <img src="assets/images/triangle-caixa.png" class="interactive-triangle" style="left: 1024.07px; top: 117.71px; width: 361.16px; height: 383.1px;" alt="Vulkre Box">
+        <img src="assets/images/triangle-outdoor.png" class="interactive-triangle" style="left: 456px; top: 540.28px; width: 458.4px; height: 173.27px;" alt="Vulkre Billboard">
+        <img src="assets/images/triangle-cartao.png" class="interactive-triangle" style="left: 1005.79px; top: 591.46px; width: 429.89px; height: 299.75px;" alt="Vulkre Card">
+      </div>
+
+      <!-- Footer (Exatamente como no Figma) -->
+      <footer class="vulkre-footer">
+        <img src="assets/images/footer-lines.svg" alt="Vulkre lines" class="footer-lines">
+        <span class="footer-copyright">© 2026 Vulkre, Inc. All Rights Reserved.</span>
+        <img src="assets/images/footer-logo.svg" alt="Vulkre Logo" class="footer-logo">
+      </footer>
+
+      <!-- Textura -->
+      <div class="texture-layer" style="height: 1280px; z-index: 20; pointer-events: none;"></div>
+    </div>
+  </section>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
